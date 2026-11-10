@@ -1,6 +1,6 @@
 # Identificación
 
-- Nombre y apellido:
-- Usuario de GitHub:
+- Nombre y apellido: Solangel Guevara
+- Usuario de GitHub: solguevarauma
 
 No incluyas cédula, contraseñas ni datos sensibles.
