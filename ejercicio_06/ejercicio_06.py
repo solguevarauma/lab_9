@@ -94,20 +94,43 @@ from ejercicio_05.ejercicio_05 import extraer_valores
 
 def sumar_cola(valores, i=0, acumulado=0):
     """Suma desde la posición i hasta el final, agregada a acumulado."""
-    pass
+    # Caso base: si hemos llegado al final de la lista, devolvemos el acumulado
+    if i >= len(valores):
+        return acumulado
+    # Caso recursivo: sumamos el valor actual al acumulado y llamamos a la función con el siguiente índice
+    else:
+        return sumar_cola(valores, i + 1, acumulado + valores[i])
 
 
 # Parte B ---------------------------------------------------------------
 
 def reporte_sucursales(ventas):
-    pass
+    """Genera un reporte de ventas por sucursal."""
+    reporte = {"sucursales": [], "total_general": 0}
+
+    for nombre, registros in ventas.items():
+        # Extraemos los valores de ventas de la sucursal
+        valores = extraer_valores(registros)
+        # Calculamos la cantidad de ventas y el total usando sumar_cola
+        cantidad_ventas = len(valores)
+        total = sumar_cola(valores)
+        # Agregamos el reporte individual de la sucursal
+        reporte["sucursales"].append({
+            "nombre": nombre,
+            "cantidad_ventas": cantidad_ventas,
+            "total": total
+        })
+        # Acumulamos el total general
+        reporte["total_general"] += total
+
+    return reporte 
 
 
 # ---------------------------------------------------------------------
 # Preguntas de análisis (responde debajo de cada pregunta)
 # ---------------------------------------------------------------------
 # 1. ¿Qué devuelve ventas.items() en cada iteración?
-#
+# Devuelve una tupla con el nombre de la sucursal y la lista de registros de ventas correspondiente. Por ejemplo, en la primera iteración podría devolver ("Centro", [120, [80, 50]]).
 #
 # 2. ¿Qué responsabilidad tiene cada una de estas funciones?
 #    extraer_valores():
@@ -119,18 +142,18 @@ def reporte_sucursales(ventas):
 #    Llamada |  i  | acumulado
 #    --------|-----|----------
 #       1    |  0  |    0
-#       2    |     |
-#       3    |     |
-#       4    |     |
+#       2    |  1  |   10
+#       3    |  2  |   30
+#       4    |  3  |   60
 #
 # 4. ¿Por qué sumar_cola() es recursiva de cola?
 #
 #
 # 5. ¿En cuál de estas dos expresiones queda una suma pendiente después
 #    de la llamada?
-#    return valores[i] + sumar(valores, i + 1)
+#    return valores[i] + sumar(valores, i + 1) 
 #    return sumar_cola(valores, i + 1, acumulado + valores[i])
-#
+# En la primera expresión queda una suma pendiente después de la llamada, ya que se está sumando el valor actual a lo que devuelva la llamada recursiva. En la segunda expresión, no queda ninguna operación pendiente después de la llamada, ya que el resultado de la llamada recursiva se devuelve directamente sin necesidad de realizar más cálculos.
 #
 
 
